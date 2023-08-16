@@ -22,7 +22,7 @@ app.post('/', async (req, res) => {
 
     const messages = [{
         role: "system",
-        content: "The user is going to give you plain text about anything related to what kind of program they want, your goal is to create a COMPLETE program for them. You only get one attempt so make it count!",
+        content: "The user is going to give you plain text about anything related to what kind of program they want, your goal is to create a COMPLETE program for them. You can also modify an exsisting program if given a program. You only get one attempt so make it count!",
         role: "user",
         content: req.body.text
     }];
@@ -35,7 +35,7 @@ app.post('/', async (req, res) => {
             properties: {
                 programName: {type: "string"},
                 programDescription: {type: "string"},
-                programCategory: {type: "string"},
+                programCategory: {type: "string", "enum": ["strength", "yoga", 'cardio', 'custom']},
                 session: {
                     type: "array",
                     items: {
@@ -47,7 +47,7 @@ app.post('/', async (req, res) => {
                                 items: {
                                     type: "object",
                                     properties: {
-                                        section: {"type": "string"},
+                                        section: {"type": "string", "enum": ["warmup", "main", "post"]},
                                         movementName: {"type": "string"},
                                         movementDescription: {"type": "string"},
                                         movementLink: {"type": "string"},
